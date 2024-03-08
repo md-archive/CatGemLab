@@ -2,6 +2,7 @@ from django.db import models
 from wagtail.models import Page
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, MultipleChooserPanel
 from wagtail.blocks import ListBlock, StructBlock, CharBlock
+from wagtail.documents.models import Document
 from wagtail.fields import StreamField
 from CGL.base.block import ImageChooserBlock, HeadingBlock, RichTextBlock
 from wagtail.snippets.models import register_snippet
@@ -40,6 +41,13 @@ class CertificatesList(Page):
         on_delete=models.SET_NULL,
         related_name="+",
     )
+    document = models.ForeignKey(
+        Document,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='+',
+    )
     date_pub_title = models.CharField(max_length=100, blank=True, null=True)
     date_published = models.DateField("Date of publication: ", blank=True, null=True)
     cert_id_title = models.CharField(max_length=100, blank=True, null=True)
@@ -58,7 +66,7 @@ class CertificatesList(Page):
         MultiFieldPanel([
             FieldPanel("body"),
         ], "Contenido" ),
-        
+        FieldPanel("document"),
     ]
     search_fields = Page.search_fields + [
         index.SearchField("body"),

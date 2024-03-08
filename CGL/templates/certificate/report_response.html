@@ -56,10 +56,11 @@
         </div>
       </div>
     </div>
+    {% if page.document %}
      <div class="mt-5">
-          <button class="btn btn-theme"><span>TITLE</span></button>
-          <button class="btn btn-dark"><span>DOWNLOAD</span></button>
+      <a href="{{ page.document.url }}" target="_blank"><button class="btn btn-theme"><span>Descargar</span></button></a>
         </div>
+    {% endif %}
   </div>
 </section>
  
