@@ -1,0 +1,18 @@
+{% load wagtailcore_tags wagtailimages_tags%}
+<div style="margin-top: 30px">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-8">
+    {% if block.value.text_title %}
+        <h3 class="mt-3 text-theme">{{block.value.text_title}}</h3>
+    {% endif %}
+    {% if block.value.text_title or block.value.list%}
+        <p>{{block.value.details}}</p>
+        <ul class="list-inline list-icon-2 text-black">
+          <li class="mb-2">{{block.value.list}}</li>
+        </ul>
+    {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

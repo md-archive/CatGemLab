@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+{% block content %}
+  {% include 'includes/page_title.html' %}
+ 
+ <section>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="table-responsive">
+          <table class="cart-table table table-bordered mb-0">
+            <thead class="light-bg">
+              <tr>
+                <th scope="col">{{page.cert_id_title}}</th>
+                <th scope="row">{{page.title}}</th>
+              </tr>
+              <tr>
+                <th scope="col">{{page.date_pub_title}}</th>
+                <th scope="row">{{page.date_published}}</th>
+              </tr>
+            </thead>
+            <tbody>
+        {% for block in page.body %}
+            {% if block.block_type == 'Table_Generator' %}
+              <tr>
+                <td>
+                    <div class="ms-md-3 mt-3 mt-md-0">
+                      <div class="product-title"><a class="link-title">{{ block.value.title }}</a>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td>
+                  <h6 class="mb-0">{{ block.value.textfield }}</h6>
+                </td>                
+              </tr>
+        {% endif %}
+    {% endfor %}
+            <tr>
+                <td>
+                </td><td>
+                    {% for block in page.body %}
+                        {% if block.block_type == 'Image_Inserter' %}
+                            {% for ims in block.value.images %}
+                                {% image ims format-avif fill-250x200 as img%}
+                                <a href="{{img.url}}"><img class="img-fluid" src="{{ img.url }}" alt="{{ img.alt }}"></a>
+                            {% endfor %}
+                        {% endif %}
+                    {% endfor %}
+         
+                </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+     <div class="mt-5">
+          <button class="btn btn-theme"><span>TITLE</span></button>
+          <button class="btn btn-dark"><span>DOWNLOAD</span></button>
+        </div>
+  </div>
+</section>
+ 
+{% endblock %}

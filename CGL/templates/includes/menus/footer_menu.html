@@ -1,0 +1,7 @@
+{% load i18n wagtailcore_tags menu_tags%}
+
+<ul class="list-unstyled">
+{% for items in menu_items %}
+    <li class="{{ items.active_class}}"><a href="{{items.href}}">{{items.text}}</a></li>
+{% endfor %}                  
+</ul>

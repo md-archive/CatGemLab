@@ -1,0 +1,33 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+<!--hero section start-->
+<section class="banner p-0 pos-r fullscreen-banner">
+  <div class="banner-slider owl-carousel no-pb " data-dots="true" data-nav="true">
+  {% for slide in block.value.slider %}
+      {% image slide.gallery format-avif max-1200x500 as img %}              
+    <div class="item hero-overlay"  data-bg-img="{{img.url}}" data-overlay="5"> 
+      <div class="align-center pt-0">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-md-10 col-12">
+              <h1 class="mb-4 text-black"><span class="text-theme">{{slide.title}}</span></h1>
+              <p class="lead font-w-5 text-black">{{slide.description}}</p>
+              <div class="btn-box mt-5">
+              {% if slide.page_link %}
+                <a class="btn btn-theme" href="{% pageurl slide.page_link %}"> <span>{{slide.page_link_title_standard}}</span></a>
+              {% endif %}
+
+              {% if slide.page_link_2 %}
+                <a class="btn btn-dark" href="{% pageurl slide.page_link_2%}"> <span>{{slide.page_link_title_secondary}}</span></a>
+              {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+

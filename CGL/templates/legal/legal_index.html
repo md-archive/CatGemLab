@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load static%}
+<!-- Title -->
+<title>{% block title%}{{page.title}}{% endblock title%}</title>
+
+
+<body>
+
+{% block body_class %}template-legalindex{% endblock %}
+{% block content %}
+{% include 'includes/page_title.html' %}
+
+<!--page title end-->
+
+
+<!--body content start-->
+
+<div class="page-content">
+
+   
+    {% for block in page.body %}
+        {% include_block block%}
+    {% endfor %}
+  
+
+</div>
+
+{% endblock%}

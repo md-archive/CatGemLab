@@ -1,0 +1,30 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+<!--call us start-->
+
+<section class="theme-bg py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-6 col-12">
+        <h3 class="text-light">{{block.value.title}}</h3>
+      </div>
+      <div class="col-md-5 col-12 ms-auto mt-3 mt-lg-0">
+        <div class="d-flex align-items-start justify-content-end">
+          <div class="text-white text-end"> <span>{{block.value.suggestion}}</span>
+            {% if block.value.phone %}
+            <h3 class="font-w-4"><a class="text-decoration-underline text-white" href="tel:{{block.value.phone}}">{{block.value.phone}}</a></h3>
+            {% endif %}
+          </div> <span class="white-bg d-inline-block p-2 ms-4"><i class="las la-phone ic-3x text-theme"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--call us end-->
+
+<!-- inject js end -->
+{% block extra_js %}
+{% endblock%}
+<!--footer end-->

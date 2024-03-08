@@ -1,0 +1,9 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+    {% if block.value.image %}
+      {% image block.value.image format-avif max-1200x500 as img %} 
+      <img class="img-fluid w-100 mb-4" type="image/avif" src="{{img.url}}" alt="{{img.url}}" width="{{img.width}}" height="{{img.height}}">  
+    {% endif %} 
+      <h3 class="mb-3">{{block.value.title}}</h3>
+      <p class="my-5">{{block.value.description}}</p>

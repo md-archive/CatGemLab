@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n wagtailcore_tags wagtailimages_tags menu_tags %}
+{% load static%}
+
+{% block content %}
+{% include 'includes/page_title.html' %}
+
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 pe-lg-5">
+                 <div class="service-details">
+                    {% for block in page.body %}
+                        {% include_block block%}
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 sidebar mt-6 mt-lg-0">
+                <div class="widget p-4 mb-5 light-bg">
+                     {% section_menu 'services_sidebar' max_levels=1 template="includes/menus/sidebar_menu.html" %}
+                </div>
+            <div class="widget p-4 light-bg">
+                <h4>{{page.contact_header}}</h4>
+                <p>{{page.contact_title}}</p> <a class="btn btn-theme btn-sm" href="{{ page.contact_page.url }}"><span>{{page.contact_link_txt}}</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{% endblock %}

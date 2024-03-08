@@ -1,0 +1,222 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+<!-- Title -->
+<title>{% block title%}{{page.title}}{% endblock title%}</title>
+<body>
+{% block content %}
+<!--page title start-->
+
+<section class="page-title parallaxie" data-bg-img="{% static 'images/bg/01.jpeg'%}">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="white-bg p-md-5 p-3 d-inline-block">
+        <h1 class="text-theme">{{page.title}} <span class="text-black"></span></h1>
+        <nav aria-label="breadcrumb" class="page-breadcrumb border-top border-light pt-3 mt-3">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/"><i class="las la-home me-1"></i>Home</a>
+            </li>
+            <li class="breadcrumb-item"><a href="{{ page.get_parent.url }}">Blog</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{{page.title}}</li>
+          </ol>
+        </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--page title end-->
+
+
+<!--body content start-->
+
+<div class="page-content">
+
+<!--blog start-->
+
+<section>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        <!-- Blog Card -->
+
+            <div class="card post-card border-0 rounded-0 bg-transparent">
+            {% if page.gallery_images %}
+              {% image page.gallery_images format-webp fill-1200x800 as img %}
+                <img class="card-img-top" src="{{img.url}}" style="float: center" > 
+            {% else %}
+                <img class="card-img-top" src="{% static 'images/blog/blog.png' fill-1200x500 %}">
+            {% endif %}
+          <div class="card-body px-4 pb-4 pt-0">
+            <div class="mt-n3">
+              <div class="d-inline-block white-bg px-2 py-1 text-black box-shadow">{{page.date_published}}</div>
+            </div>
+            <h2 class="h4 my-3">{{ page.intro }}</h2>
+            <ul class="list-inline mb-0 border-top border-bottom border-light py-2 mb-4">
+              <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-user-circle me-1"></i> {{page.author}}</a></li>
+              <!--<li class="list-inline-item"> <a href="#" class="text-black"><i class="las la-eye me-1"></i> 275</a></li>
+              <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-comments me-1"></i> 300</a></li>-->
+            </ul>
+          </div>
+          </div>
+         
+          <p>{{page.body}}</p>
+
+          <div class="d-md-flex justify-content-between">
+            <div class="d-flex align-items-center">
+              <h6 class="mb-0 me-4">Share It:</h6>
+              <div class="social-icons">
+               {% with facebook_url=settings.base.GenericSiteContent.facebook_url twitter_url=settings.base.GenericSiteContent.twitter_url instagram_url=settings.base.GenericSiteContent.instagram_url linkedin_url=settings.base.GenericSiteContent.linkedin_url %}
+                <ul class="list-inline mb-0">
+                {% if twitter_url or facebook_url or instagram_url or linkedin_url %}
+                  {% if facebook_url %}
+                  <li><a href="{{facebook_url}}"><i class="la la-facebook"></i></a></li>
+                  {% endif %}
+                  {% if instagram_url %}
+                  <li><a href="{{ instagram_url }}"><i class="la la-instagram"></i></a></li>
+                  {% endif %}
+                  {% if twitter_url %}
+                  <li><a href="{{ twitter_url}}"><i class="la la-twitter"></i></a></li>
+                  {% endif %}
+                  {% if linkedin_url %}
+                  <li><a href="{{linkedin_url}}"><i class="la la-linkedin"></i></a></li>
+                  {% endif %}
+                {% endif %}
+                </ul>
+              {% endwith %}
+              </div>
+            </div>
+            <div class="d-flex align-items-center text-md-end mt-5 mt-md-0">
+              {% with tags=page.tags.all %}
+              <h6 class="mb-0 me-4">Tags: </h6>
+               
+                {% if tags %}
+                <ul class="list-inline mb-0 widget-tags">
+                {% for tag in tags %}
+                <li class="list-inline-item"><a href="{% slugurl 'tags' %}?tag={{ tag }}">{{ tag }}</a></li>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+              </ul>
+            </div>
+          </div>
+         <div class="row my-6">
+            <div class="col-md-6 mb-5 mb-md-0">
+   
+        
+            <!-- Blog Card -->
+            <div class="card post-card border-0 rounded-0 shadow-sm bg-transparent">
+              <img class="card-img-top" src="{% static 'images/blog/blog.png' %}" alt="Image">
+              <div class="card-body px-4 pb-4 pt-0">
+                <div class="mt-n3">
+                  <div class="d-inline-block white-bg px-2 py-1 text-black box-shadow">20 February</div>
+                </div>
+                <h2 class="h4 my-3">Patient experience better Health Your Doctor Wishes
+              </h2>
+                <ul class="list-inline mb-0 border-top border-bottom border-light py-2 mb-4">
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-user-circle me-1"></i> Admin</a>
+                  </li>
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="las la-eye me-1"></i> 275</a>
+                  </li>
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-comments me-1"></i> 300</a>
+                  </li>
+                </ul>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div><a class="px-3 py-2 light-bg text-black" href="#">Equipment</a>  <a class="px-3 py-2 light-bg text-black" href="#">Sass</a>
+                  </div> <a class="link-btn" href="blog-single.html"><i class="las la-long-arrow-alt-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <!-- End Blog Card -->
+          </div>
+          <div class="col-md-6">
+            <!-- Blog Card -->
+            <div class="card post-card border-0 rounded-0 shadow-sm bg-transparent">
+              <img class="card-img-top" src="{% static 'images/blog/blog.png' %}" alt="Image">
+              <div class="card-body px-4 pb-4 pt-0">
+                <div class="mt-n3">
+                  <div class="d-inline-block white-bg px-2 py-1 text-black box-shadow">20 February</div>
+                </div>
+                <h2 class="h4 my-3">Standards of treatment Improved Detection of Disease
+              </h2>
+                <ul class="list-inline mb-0 border-top border-bottom border-light py-2 mb-4">
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-user-circle me-1"></i> Admin</a>
+                  </li>
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="las la-eye me-1"></i> 275</a>
+                  </li>
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-comments me-1"></i> 300</a>
+                  </li>
+                </ul>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div><a class="px-3 py-2 light-bg text-black" href="#">Equipment</a>  <a class="px-3 py-2 light-bg text-black" href="#">Sass</a>
+                  </div> <a class="link-btn" href="blog-single.html"><i class="las la-long-arrow-alt-right"></i></a>
+                </div>
+              </div>
+            </div>
+            <!-- End Blog Card -->
+          </div>
+        </div>
+        <div class="mt-6 border-bottom border-light pb-6">
+          <div class="mb-4">
+            <h2>Recent Comments</h2> 
+          </div>
+          <div class="d-block d-md-flex">
+            <div class="me-md-4 mb-4 mb-md-0">
+              <img class="img-fluid" alt="image" src="{% static 'images/thumbnail/01.jpg' %}">
+            </div>
+            <div>
+              <div class="mb-3">
+                <h5 class="mb-1">Leena Ivy</h5>  <small class="text-muted">20 February, 2021</small>
+              </div>
+              <p>I was casually chatting with an older female acquaintance as I got situated on the plane. She asked me what kind of medicine I practice.</p> <a class="btn btn-dark btn-sm" href="#">Reply</a>
+            </div>
+          </div>
+        </div>
+        <div class="post-comments mt-5">
+          <div class="mb-4">
+            <h2>Leave A Comment</h2> 
+          </div>
+          <form id="contact-form" class="row" method="post" action="php/contact.php">
+            <div id="formmessage"></div>
+            <div class="form-group col-md-6">
+              <input id="form_name" type="text" name="name" class="form-control" placeholder="Name" required="required">
+            </div>
+            <div class="form-group col-md-6">
+              <input id="form_email" type="email" name="email" class="form-control" placeholder="Email" required="required">
+            </div>
+            <div class="form-group col-md-12">
+              <textarea id="form_message" name="message" class="form-control" placeholder="Message" rows="3" required="required"></textarea>
+            </div>
+            <div class="col-12 mt-4">
+              <button class="btn btn-theme"><span>Post Comment</span>
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--blog end-->
+
+</div>
+
+<!--body content end--> 
+
+
+
+</div>
+
+<!-- page wrapper end -->
+
+
+
+</body>
+
+</html>
+{% endblock %} 

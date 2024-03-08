@@ -1,0 +1,12 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+     <div class="accordion" id="accordion">
+            <div class="accordion-item mb-4">
+              <h2 class="accordion-header" id="headingOne"><button class="accordion-button rounded-0" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">{{block.value.title}}</button></h2>
+              <div id="collapseOne" class="accordion-collapse border-0 collapse show" aria-labelledby="headingOne" data-bs-parent="#accordion">
+                <div class="accordion-body">{{block.value.description}}</div>
+              </div>
+            </div>
+            
+          </div>
+

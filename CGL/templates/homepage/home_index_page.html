@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+{% load i18n wagtailcore_tags wagtailimages_tags%}
+<div class="page-content">
+
+{% block content%}
+
+    {% for block in page.body %}
+        {% include_block block%}
+    {% endfor %}
+{% endblock content %}
+
+

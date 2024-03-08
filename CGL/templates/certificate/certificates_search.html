@@ -1,0 +1,17 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+
+<section>
+  <div class="container">
+    <div class="row justify-content-center mb-12 text-center">
+      <div class="col-lg-14 col-md-25">
+        <div class="p-3 p-lg-5 box-shadow white-bg">
+          <label class="text-black mb-3">{{block.value.title}}</label>
+          <form class="input-group" action="{% url 'search' %}" method="GET">
+            <input class="form-control h-auto" id="c-code" placeholder="Introduce Your Code" name="query"{% if search_query %} value="{{ blog_query }}" {% endif %} aria-label="Coupon Code" aria-describedby="button-addon2" type="text">
+            <button class="btn btn-theme" type="submit" id="button-addon2"><span>Search</span></button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

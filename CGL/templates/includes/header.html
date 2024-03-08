@@ -1,0 +1,115 @@
+{% load i18n wagtailcore_tags wagtailuserbar menu_tags %}
+{% load static %}
+
+
+{% if page %}
+<header id="site-header" class="header">
+  <div class="header-top light-bg">
+    <div class="container-fluid px-lg-8">
+      <div class="row">
+        <div class="col d-flex align-items-center justify-content-between">
+          <div class="topbar-link d-flex align-items-center text-black">
+            <div class="d-none d-sm-flex align-items-center me-3">
+              <div> <i class="las la-phone"></i>
+              </div>
+              {% with business_phone=settings.base.GenericSiteContent.business_phone  %}
+                <div>Contact: <a class="text-black" href="tel:{{business_phone}}"> {{business_phone}}</a></div>
+              {% endwith %}
+            </div>
+            <div class="d-none d-md-flex align-items-center me-3">
+              <div> <i class="las la-map-marker"></i></div>
+            <div>
+              {% with business_address=settings.base.GenericSiteContent.business_address %}
+                <div>Location: {{business_address}}</div>
+              {% endwith %}
+              </div>
+            </div>
+            <div class="d-none d-lg-flex align-items-center">
+              <div> <i class="las la-business-time"></i></div>
+            <div>
+              {% with business_workhours=settings.base.GenericSiteContent.business_workhours%}
+                <div>{{ business_workhours}}</div>
+              {% endwith %}
+              </div>
+            </div>
+          </div>
+          <div class="d-flex align-items-center"> <a class="btn btn-white btn-sm py-3" href="{{ page.admin.url }}"><span>Login</span></a>
+            <div class="social-icons d-none d-lg-inline-block ms-3">
+              <ul class="list-inline">
+              {% with facebook_url=settings.base.GenericSiteContent.facebook_url twitter_url=settings.base.GenericSiteContent.twitter_url instagram_url=settings.base.GenericSiteContent.instagram_url linkedin_url=settings.base.GenericSiteContent.linkedin_url whatsapp_url=settings.base.GenericSiteContent.whatsapp_url %}
+                {% if twitter_url or facebook_url or instagram_url or linkedin_url or whatsapp_url %}
+                    {% if facebook_url %}
+                      <li><a href="{{facebook_url}}"><i class="lab la-facebook-f"></i></a></li>
+                    {% endif %}
+                    {% if twitter_url %}
+                      <li><a href="{{twitter_url }}"><i class="lab la-twitter"></i></a></li>
+                    {% endif%}
+                    {% if instagram_url %}
+                      <li><a href="{{instagram_url}}"><i class="lab la-instagram"></i></a></li>
+                    {% endif %}
+                    {% if linkedin_url %}
+                      <li><a href="{{linkedin_url}}"><i class="lab la-linkedin-in"></i></a></li>
+                    {% endif %}
+                    {% if whatsapp_url %}
+                      <li><a href="{{ whatsapp_url }}"><i class="lab la-whatsapp"></i></a></li>
+                    {% endif %}
+                {% endif%}
+            {% endwith %}
+              </ul>
+            </div>
+            <div class="language-selection ms-3">
+              <div class="dropdown">       
+              
+              {% for translation in page.get_translations.live %}
+              <button class="dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="true">{{ lango.name_local }}</button> 
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    {% get_language_info for translation.locale.language_code as lang %}
+                    <li><a class="dropdown-item" href="{% pageurl translation %}" rel="alternate" hreflang="{{ lang.code }}">{{ lang.name_local }}</a></li>     
+               </ul>            
+              {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div id="header-wrap">
+    <div class="container-fluid px-lg-8">
+      <div class="row">
+        <div class="col">
+          <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand logo" href="{% slugurl 'home' %}">
+              <img id="logo-img" class="img-fluid" src="{% static 'images/logos.png' %}" alt="">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"> <span></span>
+              <span></span>
+              <span></span>
+            </button>
+         <div class="collapse navbar-collapse" id="navbarNav">            
+          {% main_menu max_levels=3 template="includes/menus/header_menu/main_menu.html" %}
+            </div>
+            <div class="right-nav align-items-center d-flex justify-content-end">
+              <div class="search-icon d-sm-inline-block d-none"> <a id="search" href="javascript:void(0)"><i class="las la-search"></i></a>
+              </div>
+              <div class="ms-sm-3 me-md-5">
+              {% with whatsapp_url=settings.base.GenericSiteContent.whatsapp_url whatsapp_title=settings.base.GenericSiteContent.whatsapp_title %}
+              </div>{% if whatsapp_url or whatsapp_title %} <a class="btn btn-theme btn-sm d-none d-md-inline-block fa-whatsapp" href="{{whatsapp_url}}"><span>{{whatsapp_title}}</span></a>{% endif %}
+              {% endwith %}
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+<div class="search-input" id="search-input-box">
+  <div class="container ">
+    <form class="d-flex justify-content-between search-inner" action="{% url 'search' %}" method="get">
+      <input type="text" class="form-control" id="search-input" placeholder="Search Here" name="query"{% if search_query %} value="{{ search_query}}" {% endif %} >
+      <button type="submit" value="Search" class="btn"></button> <span class="las la-times" id="close-search" title="Close Search"></span>
+    </form>
+  </div>
+</div>
+    {% wagtailuserbar "top-left" %}
+{% endif %}

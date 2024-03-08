@@ -1,0 +1,50 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+<!--service start-->
+<div class="page-content">
+<section class="custom-pb-2 theme-bg">
+  <div class="container">
+    <div class="row align-items-center mb-5">
+      <div class="col-lg-6 col-md-7">
+        <div class="section-title mb-0">
+          <h2 class="title text-white mb-0">{{block.value.title}} </h2> 
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-5 mt-5 mt-md-0 text-md-end">
+      {% if block.value.view_link %}
+        <a class="btn btn-white" href="{% pageurl block.value.view_link %}"> <span>{{block.value.view_link}}</span></a>
+      {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pt-0 mt-n15">
+  <div class="container">
+    <div class="row align-items-center">
+    {% for card_block in block.value.cards %}
+      <div class="col-lg-4 col-md-6">
+    
+        <div class="service-item style-3 text-center">
+          <div class="service-img">
+          {% image card_block.service_1_img fill-600x400 as img %}
+            <img class="img-fluid" src="{{img.url}}" alt="">
+          </div>
+          <div class="service-desc pt-6 white-bg shadow-none">
+            <div class="service-icon"> <i class="flaticon-biology-1"></i>
+            </div>
+            <div class="service-title">
+              <h4>{{card_block.card_title}}</h4>
+            </div>
+            <p>{{card_block.card_description}}</p>
+            <div class="pt-4 mt-4 border-top border-light"> <a class="btn-link text-black" href="{% pageurl card_block.card_link %}">Read More...</a> 
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    
+
+    </div>
+  </div>
+</section>

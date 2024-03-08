@@ -1,0 +1,106 @@
+{% load wagtailcore_tags wagtailimages_tags menu_tags%}
+{% load static %}
+
+{# get_menu "footer_nav_q" as fq_navigation #}
+{# get_menu "footer_nav_s" as fs_navigation #}
+
+<!--footer start-->
+
+<footer class="footer light-bg">
+  <div class="primary-footer">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-4 col-12 white-bg p-4 p-md-6">
+          <a class="footer-logo" href="{% slugurl 'home' %}">
+            <img id="footer-logo" class="img-fluid" src="{% static 'images/logo_large.png' %} " alt="">
+          </a>
+           {% with footer_description=settings.base.GenericSiteContent.footer_description  %}
+          <p class="my-4">{{ footer_description }}</p>
+          {% endwith %}
+          <div class="social-icons social-colored footer-social">
+         {% with twitter_url=settings.base.GenericSiteContent.twitter_url facebook_url=settings.base.GenericSiteContent.facebook_url instagram_url=settings.base.GenericSiteContent.instagram_url linkedin_url=settings.base.GenericSiteContent.linkedin_url whatsapp_url=settings.base.GenericSiteContent.whatsapp_url %}
+                <ul class="list-inline">
+            {% if twitter_url or facebook_url or instagram_url or linkedin_url or whatsapp_url %}
+                {% if facebook_url%}
+                    <li><a href="{{ facebook_url }}"><i class="lab la-facebook-f"></i></a></li>
+                {% endif %}
+                {% if twitter_url %}
+                    <li><a href="{{ twitter_url}}"><i class="lab la-twitter"></i></a></li>
+                {% endif %}
+                {% if instagram_url%}  
+                    <li><a href="{{ instagram_url }}"><i class="lab la-instagram"></i></a></li>
+                {% endif %}
+                {% if linkedin_url %}
+                    <li><a href="{{ linkedin_url }}"><i class="lab la-linkedin-in"></i></a>
+                {% endif %}
+                {% if whatsapp_url %}
+                    <li><a href="{{ whatsapp_url }}"><i class="lab la-whatsapp"></i></a></li>
+                {% endif %}
+            {% endif %}
+         {% endwith %}
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-lg-8 col-12 p-4 p-md-6">
+          <div class="row">
+            <div class="col-md-3 col-sm-6 col-12">
+              <h4 class="mb-4">Quick Links</h4>
+              <div class="footer-list">
+                {% flat_menu 'quicklinks' max_levels=1 template="includes/menus/footer_menu.html"%}
+                </ul>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-6 col-12 mt-6 mt-sm-0">
+              <h4 class="mb-4">Services</h4>
+              <div class="footer-list">
+              {% flat_menu 'services' max_levels=1 template="includes/menus/footer_menu.html"%}
+              </div>
+            </div>
+            <div class="col-md-5 col-12 mt-6 mt-md-0">
+              <h4 class="mb-4">Get In Touch</h4>
+              <div class="footer-cntct my-4">
+              {% with business_address=settings.base.GenericSiteContent.business_address business_email=settings.base.GenericSiteContent.business_email business_phone=settings.base.GenericSiteContent.business_phone business_workhours=settings.base.GenericSiteContent.business_workhours %}
+                {% if business_address or business_email or business_phone or business_workhours %}
+                  <ul class="media-icon list-unstyled">
+                    <li> <i class="flaticon-hospital"></i>
+                    {% if business_address %}
+                      <p class="mb-0">{{ business_address }}</p>
+                    {% endif %}
+                    </li>
+                    {% if business_email %}
+                    <li><i class="flaticon-medical-report"></i><a href="mailto:{{business_email}}">{{business_email}}</a></li>
+                    {% endif %}
+                    {% if business_phone %}
+                    <li><i class="flaticon-medical-assistance"></i><a href="tel:{{business_phone}}">{{ business_phone}}</a></li>
+                    {% endif %}
+                    {% if business_workhours %}
+                    <li><i class="flaticon-working-hours"></i> 
+                      <p class="mb-0">{{business_workhours}}</p>
+                    </li>
+                    {% endif %}
+                  </ul>
+                {% endif %}
+              {% endwith %}
+              
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">      
+            {% with footer_copyright_notice=settings.base.GenericSiteContent.footer_copyright_notice %}      
+              <div class="copyright p-4 white-bg mt-5 ms-md-n6" style="text-align: center">Copyright © {{footer_copyright_notice}} 2024 All rights reserved</a></u></div>
+            {% endwith %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+</footer>
+
+<!-- inject js end -->
+{% block extra_js %}
+{% endblock%}
+<!--footer end-->

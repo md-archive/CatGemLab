@@ -1,0 +1,29 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+
+<!--about start-->
+
+<section>
+  <div class="container">
+    <h2 class="title">{{block.value.about_title}}</h2> 
+    <div class="row align-items-center justify-content-center"> <!-- Centering content -->
+      <div class="col-lg-20 col-12">
+        <div>
+          <div class="section-title">
+     
+            {% if block.value.about_block %}
+              <p class="text-black font-w-5 mb-3">{{block.value.about_block}}</p>
+            {% endif %}
+          </div>
+          {% if block.value.link_page %}
+            <a class="btn btn-theme" href="{% pageurl block.value.link_page %}"><span>{{block.value.link_title}}</span></a>
+          {% endif %}            
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!--about end-->

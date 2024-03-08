@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+<!-- Title -->
+{% block title %}Page not found{% endblock %}
+
+
+{% block body_class %}template-404{% endblock %}
+
+<!--body content start-->
+
+<div class="page-content">
+
+<!--404 start-->
+{% block content %}
+<section class="fullscreen-banner p-lg-0">
+  <div class="container h-100">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-5 h-100 d-flex align-items-center">
+        <div>
+          <h1>404 Error</h1>
+          <h3 class="my-3">Oops! Page Not Found</h3>
+          <h6 class="mb-5">You’re either misspelling the URL
+or requesting a page that's no longer here.</h6>
+          <a class="btn btn-theme" href="index.html"><span>Back To Home Page</span></a>
+        </div>
+      </div>
+      <div class="col-lg-7 mt-6 mt-lg-0">
+        <img class="img-fluid" src="{% static 'images/404.png' %}" alt="">
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
+<!--404 end-->
+
+</div>
+
+<!--body content end--> 
+
+</div>
+
+
+</body>
+
+</html>

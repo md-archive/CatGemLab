@@ -1,0 +1,69 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+<!--feature start-->
+
+<section class="pb-0">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-sm-6">
+    {% if block.value.page_1 or block.value.page_2 or block.value.page_3 or block.value.page_4 %}
+      {% if block.value.page_1 %}
+        <div class="featured-item style-1">
+         
+          <div class="featured-icon"> <i class="flaticon-research-1"></i></div>
+          <div class="featured-title">
+            <h5><a href="{% pageurl block.value.page_1 %}">{{block.value.featured_page_1_title}}</a></h5>
+          </div>
+          <div class="featured-desc">
+            <p>{{block.value.page_1_description}}</p>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mt-5 mt-sm-0">
+        {% if block.value.page_2 %}
+        <div class="featured-item style-1 active">
+          <div class="featured-icon"> <i class="flaticon-biology-1"></i></div>
+          <div class="featured-title">
+                <h5><a href="{% pageurl block.value.page_2 %}">{{block.value.featured_page_2_title}}</a></h5>
+          </div>      
+          <div class="featured-desc">
+            <p>{{block.value.page_2_description}}</p>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mt-5 mt-lg-0">
+        {% if block.value.page_3 %}
+        <div class="featured-item style-1">
+      
+          <div class="featured-icon"> <i class="flaticon-laboratory-1"></i>
+          </div>
+          <div class="featured-title">
+                <h5><a href="{% pageurl block.value.page_3 %}">{{block.value.featured_page_3_title}}</a></h5>
+          </div>      
+          <div class="featured-desc">
+            <p>{{block.value.page_3_description}}</p>
+          </div>
+        {% endif %}
+        </div>
+      </div>
+      <div class="col-lg-3 col-sm-6 mt-5 mt-lg-0">
+        {% if block.value.page_4 %}
+        <div class="featured-item style-1">
+     
+          <div class="featured-icon"> <i class="flaticon-award"></i>
+          </div>
+          <div class="featured-title">
+                <h5><a href="{% pageurl block.value.page_4 %}">{{block.value.featured_page_4_title}}</a></h5>
+          </div>      
+          <div class="featured-desc">
+            <p>{{block.value.page_4_description}}</p>
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    </div>
+  </div>
+</section>

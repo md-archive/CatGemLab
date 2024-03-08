@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% load i18n wagtailcore_tags wagtailimages_tags %}
+{% load static%}
+<!-- Title -->
+<title>{% block title%}{{page.title}}{% endblock title%}</title>
+
+
+<body>
+
+{% block body_class %}template-blogindexpage{% endblock %}
+<!--page title start-->
+
+{% block content %}
+
+{% include 'includes/page_title.html' %}
+
+<!--page title end-->
+
+
+<!--body content start-->
+
+  <div class="page-content">
+
+<!--blog start-->
+
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-8 mb-6 mb-lg-0">
+          <!-- Blog Card -->
+       
+    
+     {% for post in posts %}
+        {% with post=post.specific %}
+          <div class="intro">{{ page.intro|richtext }}</div>
+            <div class="card post-card border-0 rounded-0 shadow-sm bg-transparent mb-6">
+              {% if post.gallery_images %}
+                  {% image post.gallery_images format-webp fill-1200x500 as img %}
+                  <img class="card-img-top" src="{{img.url}}">
+              {% else %}
+                  <img class="card-img-top" src="{% static 'images/blog/blog.png' fill-1200x500 %}">
+              {% endif %}
+     
+            <div class="card-body px-4 pb-4 pt-0">
+              <div class="mt-n3">
+                <div class="d-inline-block white-bg px-2 py-1 text-black box-shadow">{{post.specific.date_published}}</div>
+              </div>
+              <h2 class="h4 my-3"><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+                <ul>
+                  <p>{{ post.specific.intro }}</p>
+                </ul>
+                <ul class="list-inline mb-0 border-top border-bottom border-light py-2 mb-4">
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-user-circle me-1"></i> {{post.specific.author}}</a></li>
+                  <!--<li class="list-inline-item"> <a href="#" class="text-black"><i class="las la-eye me-1"></i> 275</a></li>
+                  <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-comments me-1"></i> 300</a></li>-->
+                </ul>
+                
+                <div class="d-flex justify-content-between align-items-center"><div>
+                  {% for tag in post.tags.all %}
+                    <a class="px-3 py-2 light-bg text-black" href="{{ tag.url }}">{{ tag }}</a>
+                  {% endfor %}
+                  </div>
+                  <a class="link-btn" href="{% pageurl post %}"><i class="las la-long-arrow-alt-right"></i></a>
+              </div>
+            </div>
+          </div>
+        {% endwith %}
+    {% endfor %}
+        <!-- End Blog Card -->
+        <div class="mt-8">
+          <nav aria-label="Page navigation">
+            {% for post in posts %}
+            <ul class="pagination">
+              {% if post.paginator.num_pages > 1 %}
+                {% if post.has_previous %}
+                  <li class="page-item"><a class="page-link" href="?page={{ posts.previous_page_number}}">Previous</a></li>
+                {% endif %}
+                {% for page_num in post.paginator.page_range %}
+                  <li class="page-item {% if page_num == posts.number%} active {% endif %}"><a class="page-link" href="?page={{page_num}}">{{ page_num }}</a>
+                {% endfor %}
+                {% if post.has_next %}
+                  <li class="page-item"><a class="page-link" href="?page={{ posts.next_page_number}}">Next</a></li>
+                {% endif %}
+              {% endif %}
+            {% endfor %}
+            </ul>
+          </nav>
+        </div>
+      </div>
+      <div class="col-12 col-lg-4">
+        <div class="mb-5 p-4 border">
+          <form action="{% url 'search' %}" method="GET">
+            <div class="input-group">
+              <input class="form-control h-auto" type="search" placeholder="Search Here" aria-label="Search" name="query"{% if search_query %} value="{{ blog_query }}" {% endif %}>
+              <button class="btn btn-theme mt-2 my-sm-0" type="submit"><span><i class="las la-search"></i></span>
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="mb-5 p-4 border">
+          <h4 class="mb-3">Recent Stories</h4>
+           <article>
+        {% for post in posts %}
+            <div class="row align-items-center">
+              <div class="col-sm-5">
+          {% with post=post.specific %}    
+              {% image post.gallery_images format-avif fill-240x100 as img %}
+                <img src="{{img.url}}" class="img-fluid" alt="...">
+              </div>
+              <div class="col-sm-7">
+                <h5 class="h6"><a href="{{post.url}}">{{post.title}}</a></h5>
+                <a class="d-inline-block text-grey" href="#">{{post.date_published}}</a>
+              </div>
+          {% endwith %}
+            </div>
+        {% endfor %}
+          </article>
+         
+        </div>
+        <div class="mb-5 p-4 border">
+          <h4 class="mb-3">Categories</h4>
+          <ul class="list-unstyled list-group list-group-flush">
+            <li class="mb-3"> <a class="list-group-item text-black border-0" href="#">All<span class="ms-2 light-bg font-weight-normal p-2">44</span></a></li>
+            <li class="mb-3"> <a class="list-group-item text-black border-0" href="#">Pathology<span class="ms-2 light-bg font-weight-normal p-2">32</span></a></li>
+            <li class="mb-3"> <a class="list-group-item text-black border-0" href="#">Featured<span class="ms-2 light-bg font-weight-normal p-2">57</span></a></li>
+            <li class="mb-3"> <a class="list-group-item text-black border-0" href="#">Research<span class="ms-2 light-bg font-weight-normal p-2">60</span></a></li>
+            <li> <a class="list-group-item text-black border-0" href="#">Blog Post<span class="ms-2 light-bg font-weight-normal p-2">24</span></a></li>
+          </ul>
+        </div>
+        <div class="p-4 border widget-tags">
+           <h4 class="mb-3">Tags</h4>
+          <div>
+          {% for tag in page.get_child_tags %} 
+            <a class="d-inline-block m-1" href="">{{tag}}</a>
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+
+<!--blog end-->
+
+</div>
+
+<!--body content end--> 
+
+
+</div>
+
+<!-- page wrapper end -->
+
+
+
+
+{% endblock %}
+

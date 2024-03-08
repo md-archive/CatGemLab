@@ -1,0 +1,44 @@
+{% load wagtailcore_tags wagtailimages_tags %}
+{% load static %}
+
+
+<!--project start-->
+
+<section class="pb-0">
+  <div class="container">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8">
+          	{% if block.value.title %}
+        <div class="section-title">
+            <h2 class="title">{{block.value.title}}</h2> 
+        </div>
+            {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+      {% with card_count=block.value.cards|length %}
+        <div class="owl-carousel no-pb popup-gallery" data-dots="false" data-items="{{card_count}}" data-md-items="3" data-sm-items="2" data-xs-items="1" data-margin="10">
+  
+        {% for x in block.value.cards %}
+          <div class="item">  
+            <div class="cases-item position-relative overflow-hidden">
+            {% image x.services_image format-avif fill-500x580 as img %}
+              <img class="img-fluid w-100" type="image/avif" src="{{img.url}}" alt="">
+              <a class="popup-img" href="{{img.url}}"> <i class="las la-plus"></i></a>
+              <div class="cases-title"> <span>{{x.services_title}}</span>
+                <h4><a href="{{x.services_link.url}}">{{x.services_link}}</a></h4>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+        </div>        
+      {% endwith %}          
+      </div>
+    </div>
+  </div>
+</section>
+<!--service end-->
+
