@@ -190,7 +190,7 @@ WAGTAILSEARCH_BACKENDS = {
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-WAGTAILADMIN_BASE_URL = "https://catgemlab.com"
+WAGTAILADMIN_BASE_URL = "http://catgemlab.com"
 
 LANGUAGES = [
     ("en-GB", "English (UK)"),

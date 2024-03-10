@@ -1,7 +1,7 @@
 from .base import *
 DEBUG = False
 
-ALLOWED_HOSTS = ['catgemlab.com', 'www.catgemlab.com', '0.0.0.0:8000']
+ALLOWED_HOSTS = ['*']
 
 try:
     from .local import *

@@ -1,17 +1,102 @@
 {% extends "base.html" %}
-{% load static %}
+{% block body_class %}template-homepage{% endblock %}
+{% load i18n wagtailcore_tags wagtailimages_tags static %}
+<html>
 <!-- Title -->
 {% block title %}Page not found{% endblock %}
-
-
 {% block body_class %}template-404{% endblock %}
+<head>
 
+  <!-- meta tags -->
+  <meta charset="utf-8">
+  {% if page.search_description %}
+  <meta name="description" content="{{ page.search_description }}" />
+  {% endif %}
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  {% if request.in_preview_panel %}
+  <base target="_blank">
+  {% endif %}
+  <!-- Title -->
+    <title>
+              {% block title %}
+              {% if page.seo_title %}{{ page.seo_title }}{% else %}{{ page.title }}{% endif %}
+              {% endblock %}
+              {% block title_suffix %}
+              {% wagtail_site as current_site %}
+              {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
+              {% endblock %}
+    </title>
+  <!-- favicon icon -->
+  <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'images/favicon/site.webmanifest' %}">
+  <link rel="mask-icon" href="{% static 'images/favicon/safari-pinned-tab.svg' %}" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#2b5797">
+  <meta name="theme-color" content="#ffffff">
+  <!-- inject css start -->
+  
+  <!--== bootstrap -->
+  <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Livvic:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,900&display=swap" rel="stylesheet">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  
+  <!--== animate -->
+  <link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== line-awesome -->
+  <link href="{% static 'css/line-awesome.min.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== magnific-popup -->
+  <link href="{% static 'css/magnific-popup.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== owl.carousel -->
+  <link href="{% static 'css/owl.carousel.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== lightslider -->
+  <link href="{% static 'css/lightslider.min.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== base -->
+  <link href="{% static 'css/base.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== spacing -->
+  <link href="{% static 'css/spacing.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!--== style -->
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" />
+  
+  <!-- inject css end -->
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+
+    <!-- page wrapper start -->
+    <div class="page-wrapper">
+    
+    <!-- preloader start -->
+    <div id="ht-preloader">
+      <div class="clear-loader d-flex align-items-center justify-content-center">
+        <div class="loader">
+         <span class="plus"></span>
+        <span class="plus"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+        </div>
+      </div>
+    </div>
+    <!-- preloader end -->
 <!--body content start-->
 
 <div class="page-content">
 
 <!--404 start-->
-{% block content %}
+
 <section class="fullscreen-banner p-lg-0">
   <div class="container h-100">
     <div class="row align-items-center h-100">
@@ -21,7 +106,7 @@
           <h3 class="my-3">Oops! Page Not Found</h3>
           <h6 class="mb-5">You’re either misspelling the URL
 or requesting a page that's no longer here.</h6>
-          <a class="btn btn-theme" href="index.html"><span>Back To Home Page</span></a>
+          <a class="btn btn-theme" href="{% pageurl request.site.root_page %}"><span>Back To Home Page</span></a>
         </div>
       </div>
       <div class="col-lg-7 mt-6 mt-lg-0">
@@ -30,16 +115,6 @@ or requesting a page that's no longer here.</h6>
     </div>
   </div>
 </section>
-{% endblock %}
-<!--404 end-->
-
-</div>
-
-<!--body content end--> 
-
-</div>
-
 
 </body>
-
 </html>
