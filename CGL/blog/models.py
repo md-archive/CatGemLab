@@ -163,13 +163,3 @@ class BlogIndexPage(RoutablePageMixin, Page):
         tags = sorted(set(tags))
         return tags
 
-
-    def blog_page_view(request):
-        
-        blogs = ArticlePage.objects.all()
-        blogs = blogs.order_by('-date_published')
-
-        return render(request, 'includes/blog_section.html', {
-
-            'externalblogs': blogs,
-        })

@@ -3,8 +3,28 @@ from django.shortcuts import render
 from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
-from CGL.base.block import AboutSection, CleanSection, BlogSection, ServiceParallaxBlock, CarouselSlider
+from CGL.base.block import AboutSection, CleanSection, ServiceParallaxBlock, CarouselSlider
+from CGL.blog.models import ArticlePage, BlogIndexPage
 from wagtail import blocks
+
+class BlogSection(blocks.StructBlock):
+    title = blocks.CharBlock(required=False)
+
+    def get_context(self, value, parent_context=None):
+        context = super().get_context(value, parent_context=parent_context)
+        
+        # Retrieve the BlogIndexPage
+        blog_index_page = BlogIndexPage.objects.live().first()
+
+        # If the BlogIndexPage exists, fetch its posts and add to the context
+        if blog_index_page:
+            context['blog_posts'] = blog_index_page.get_context(context['request']).get('posts', [])
+
+        return context
+
+    class Meta:
+        template = "includes/blog_section.html"
+
 
 class HomeServicesSection (blocks.StructBlock):
     title = blocks.CharBlock(required=False)    
@@ -68,13 +88,6 @@ class HomePage(Page):
     template = "homepage/home_index_page.html"
      # Body section of the HomePage
     
-    gallery = models.ForeignKey(
-        "wagtailimages.Image",
-        null=True,
-        blank=True,
-        on_delete=models.SET_NULL,
-        related_name="+",
-    )
     body = StreamField([
         ('Carousel_Section', CarouselSection()),
         ('About_Section', AboutSection()),
@@ -83,16 +96,13 @@ class HomePage(Page):
         ('QuickLinks_Section', QuickLinksSection()),
         ('Contact_Section', ContactSection()),
         ('BlogSection', BlogSection()),
-        
-        
     ], verbose_name="Home Body", blank=True, use_json_field=True)
     
     content_panels = Page.content_panels + [
-        FieldPanel("gallery"),
+        
         MultiFieldPanel([
             FieldPanel("body"), 
         ], "General Context",     
     ),   
         
     ]
-   

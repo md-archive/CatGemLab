@@ -3,7 +3,7 @@ from wagtail.models import Page
 from wagtail.fields import StreamField
 from wagtail.admin.panels import FieldPanel, MultiFieldPanel, InlinePanel
 from wagtail import blocks
-from CGL.base.block import ImageChooserBlock, BaseStreamBlock, AboutSection, CleanSection, PageChooserBlock, BlogSection, ServiceCardBlock
+from CGL.base.block import ImageChooserBlock, BaseStreamBlock, AboutSection, CleanSection, PageChooserBlock, ServiceCardBlock, TestimonialsSection
 
 class LabSection (blocks.StructBlock):
     
@@ -26,7 +26,6 @@ class ProgressSection (blocks.StructBlock):
     class Meta:
         template = "about_page/isProgress.html"
 
-
 class ServicesSection (blocks.StructBlock):
     title = blocks.CharBlock(required=False)
     view_link = PageChooserBlock(required=False)
@@ -40,9 +39,12 @@ class ServicesSection (blocks.StructBlock):
     ]
     class Meta:
         template = "about_page/isServices.html"
-class TestimonialsSections (blocks.StructBlock):
-    title = blocks.CharBlock(required=False)
-                             
+
+class TestimonialsCardSelector (blocks.StructBlock):
+    title = blocks.CharBlock(required=True)    
+    section_image = ImageChooserBlock(required=True)
+    card = blocks.ListBlock(TestimonialsSection(), required=False)
+    
     class Meta:
         template = "about_page/isTestimonials.html"
 
@@ -64,22 +66,20 @@ class AboutUsPage(Page):
     body = StreamField([
         ('About_Section', AboutSection()),
         ('About_Section_Extended', CleanSection()),
-        ('Lab_section', LabSection()),
-        ('Price_Table', PriceTable()),
-        ('ProgressSection', ProgressSection()),
         ('ServicesSection', ServicesSection()),
-        ('TestimonialsSections', TestimonialsSections()),
+        ('TestimonialsSections', TestimonialsCardSelector()),
         
     ], verbose_name="Page Body", blank=True, use_json_field=True)
     
     content_panels = Page.content_panels + [
-        MultiFieldPanel([
-            FieldPanel("gallery"), 
+        MultiFieldPanel([ 
             FieldPanel("body"),
         ], "General Context",     
     ),   
     ]
-
+    settings_panels = [
+        FieldPanel("gallery"),
+    ]
 
    
    

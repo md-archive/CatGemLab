@@ -2,8 +2,7 @@
  
 <ul class="navbar-nav ms-auto me-auto position-relative">
     {% for items in menu_items %}
-        <li class="nav-item {% if items %} dropdown {% endif %}"><a class="nav-link {{ items.active_class }}" href="{{ items.href }}" >{{ items.text }}</a>
-        
+     <button class="btn navbar-nav" onclick="location.href='{{items.href}}'">{{ items.text }}</p>
         {% if menu_item.has_submenu %}
             <ul class="dropdown-menu">
             {% for sub_menu_item in menu_item.submenu_items %}
@@ -11,7 +10,8 @@
             {% endfor %}
             </ul>
         {% endif %}              
-        </li>
+    </button>
+        
     {% endfor %}
 </ul>
 

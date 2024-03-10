@@ -1,7 +1,6 @@
 {% load wagtailcore_tags wagtailimages_tags %}
 {% load static %}
 
-
 <section>
   <div class="container">
     <div class="row justify-content-center text-center">
@@ -12,52 +11,42 @@
       </div>
     </div>
     <div class="row">
+      {% for post in blog_posts %}
       <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
+     
         <!-- Blog Card -->
-        <div class="card post-card border-0 rounded-0 shadow-sm bg-transparent">
-        {% for blog in externalblogs %}
-          {% with blog=blog.specific %}
-            {% if blog.gallery_images %}
-              {% image blog.gallery_images format-webp fill-800x700 as img %}
-              <img class="card-img-top" src="{{img.url}}" alt="Image">
-            {% endif %}
+        <div class="card post-card border-0 rounded-0 shadow-sm bg-transparent"> 
+          {% if post.gallery_images %}
+                  {% image post.gallery_images format-webp fill-1200x500 as img %}
+                  <img class="card-img-top" src="{{img.url}}">
+              {% else %}
+                  <img class="card-img-top" src="{% static 'images/blog/blog.png' fill-1200x500 %}">
+              {% endif %}
             <div class="card-body px-4 pb-4 pt-0">
             <div class="mt-n3">
-              <div class="d-inline-block white-bg px-2 py-1 text-black box-shadow">20 February</div>
+              <div class="d-inline-block white-bg px-2 py-1 text-black box-shadow">{{post.date_published}}</div>
             </div>
-            <h2 class="h4 my-3">Equipping Researchers in the Developing World
-              </h2>
+            <h2 class="h4 my-3">{{post.title}}</h2>
             <ul class="list-inline mb-0 border-top border-bottom border-light py-2 mb-4">
-              <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-user-circle me-1"></i> Admin</a>
-              </li>
-              <li class="list-inline-item"> <a href="#" class="text-black"><i class="las la-eye me-1"></i> 275</a>
-              </li>
-              <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-comments me-1"></i> 300</a>
-              </li>
+              <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-user-circle me-1"></i>{{post.author}}</a></li>
+              <li class="list-inline-item"> <a href="#" class="text-black"><i class="las la-eye me-1"></i> 275</a></li>
+              <li class="list-inline-item"> <a href="#" class="text-black"><i class="lar la-comments me-1"></i> 300</a></li>
             </ul>
             <div class="d-flex justify-content-between align-items-center">
-              <div><a class="px-3 py-2 light-bg text-black" href="#">Equipment</a>  <a class="px-3 py-2 light-bg text-black" href="#">Sass</a>
-              </div> <a class="link-btn" href="blog-single.html"><i class="las la-long-arrow-alt-right"></i></a>
+              <div>
+                {% for tags in post.tag %}
+                <a class="px-3 py-2 light-bg text-black" href="#">{{tags}}</a>  
+                <a class="px-3 py-2 light-bg text-black" href="#">{{tags}}</a>
+                {% endfor %}
+              </div> <a class="link-btn" href="{{post.specific.url}}"><i class="las la-long-arrow-alt-right"></i></a>
             </div>
           </div>
-          {% endwith %}
-      {% endfor %}
+         
         </div>
-        <!-- End Blog Card -->
       </div>
-      <div class="col-md-6 col-lg-4 mb-5 mb-lg-0">
-        <!-- Blog Card -->
-       
-        <!-- End Blog Card -->
-      </div>
-      <div class="col-md-6 col-lg-4">
-        <!-- Blog Card -->
-        
-        <!-- End Blog Card -->
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>
 
 <!--blog end-->
-

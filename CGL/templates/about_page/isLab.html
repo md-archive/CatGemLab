@@ -7,10 +7,12 @@
         <div class="white-bg z-index-1 border-top border-start border-light">
           <div class="row g-0">
             <div class="col-lg-4">
-              <div class="featured-item py-5 shadow-none d-flex align-items-start style-2 border-end border-light border-bottom">
-                <div class="featured-icon me-3"> <i class="flaticon-laboratory-1"></i>
-                </div>
               {% if block.value.title or block.value.description or block.value.readmore_title or block.value.readmore_link%}
+             
+              <div class="featured-item py-5 shadow-none d-flex align-items-start style-2 border-end border-light border-bottom">
+             
+              
+                <div class="featured-icon me-3"> <i class="flaticon-laboratory-1"></i></div>
                 <div class="featured-desc">
                   <div class="featured-title">
                     {% if block.value.title%}
@@ -22,9 +24,9 @@
                   {% endif %}
                   <a class="btn-link text-black" href="{{ block.readmore_link }}">{{block.value.readmore_title}}</a>
                 </div>
-              {% endif %}
               </div>
             </div>
+            {% endif %}
           </div>
         </div>
       </div>

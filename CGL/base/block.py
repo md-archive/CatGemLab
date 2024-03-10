@@ -9,6 +9,7 @@ from wagtail.blocks import (
 )
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock 
+
 class ImageBlock(StructBlock):
     """
     Custom `StructBlock` for utilizing images with associated caption and
@@ -93,15 +94,6 @@ class CleanSection(StructBlock):
     class Meta:
         template = "includes/isAbout_noImage.html" 
 
-class BlogSection (StructBlock):
-    title = CharBlock(required=False)
-    choose_page_1 = PageChooserBlock(required=False)
-    choose_page_2 = PageChooserBlock(required=False)
-    choose_page_3 = PageChooserBlock(required=False)
-                         
-    class Meta:
-        template = "includes/blog_section.html"
-
 class CarouselManager(StructBlock):
     gallery_list = ImageBlock(required=False)
     
@@ -148,7 +140,7 @@ class CarouselSlider(StructBlock):
     class Meta:
         icon = "sliders"
 
-class QuickLinksSection (StructBlock):
+class QuickLinksSection(StructBlock):
     
     featured_page_title = TextBlock(required=False)
     page_description = CharBlock(required=False)
@@ -156,6 +148,13 @@ class QuickLinksSection (StructBlock):
     
     class Meta: 
         icon = "quicklinks-x"
+class TestimonialsSection(StructBlock):
+    fullname= TextBlock(required=True)
+    client_type= TextBlock(required=False)
+    comment= CharBlock(required=True)
+
+    class Meta:
+        icon = "testimonials"
 
 class ContactSection (StructBlock):
     title = CharBlock(required=False)

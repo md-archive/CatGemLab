@@ -1,44 +1,38 @@
+{% load wagtailcore_tags wagtailimages_tags static %}
 
 <!--testimonial start-->
-
 <section class="p-0">
+    <div class="row justify-content-center text-center">
+      <div class="col-lg-8 col-12">
+        <div class="section-title">
+          <h2 class="title">{{block.value.title}}</h2>
+        </div>
+      </div>
+    </div>
   <div class="container-fluid p-0">
     <div class="row g-0">
-      <div class="col-md-4" data-bg-img="images/about/05.jpg"></div>
+      {% if block.value.section_image %}
+          {% image block.value.section_image fill-250x250 format-webp as img %}
+        <div class="col-md-4" data-bg-img="{{ img.url }}"></div>
+        {% endif %}
       <div class="col-md-8 theme-bg py-5 px-lg-8 px-5">
-        <div class="owl-carousel no-pb" data-dots="false" data-items="1" data-autoplay="true" data-autoplay-timeout="8000">
-          <div class="item">
-            <div class="testimonial text-center">
-              <div class="testimonial-img mb-2">
-                <img class="img-fluid rounded-circle shadow-sm d-inline-block" src="images/testimonial/01.jpg" alt="">
+          <div class="owl-carousel no-pb" data-dots="false" data-items="1" data-autoplay="true" data-autoplay-timeout="8000">
+          {% for cards in block.value.card %}  
+            <div class="item">
+                <div class="testimonial text-center">
+                  <div class="testimonial-content">
+                    <div class="testimonial-caption mb-3">
+                      <h5 class="text-white">{{ cards.fullname }}</h5>
+                      <label class="fst-italic d-block text-light">-{{ cards.client_type }}</label>
+                    </div>
+                    <p class="fst-italic text-light">{{ cards.comment }}</p>
+                  </div>
               </div>
-              <div class="testimonial-content">
-                <div class="testimonial-caption mb-3">
-                  <h5 class="text-white">Andrew Rooney</h5>
-                  <label class="fst-italic d-block text-light">-Supervisor</label>
-                </div>
-                <p class="fst-italic text-light">Labortech great place to work because of the opportunities for moving between centres and trying something new within your area of expertise. The laboratory is also an open and flexible workplace & great place to work with.</p>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="testimonial text-center">
-              <div class="testimonial-img mb-2">
-                <img class="img-fluid rounded-circle shadow-sm d-inline-block" src="images/testimonial/01.jpg" alt="">
-              </div>
-              <div class="testimonial-content">
-                <div class="testimonial-caption mb-3">
-                  <h5 class="text-white">Andrew Rooney</h5>
-                  <label class="fst-italic d-block text-light">-Supervisor</label>
-                </div>
-                <p class="fst-italic text-light">Labortech great place to work because of the opportunities for moving between centres and trying something new within your area of expertise. The laboratory is also an open and flexible workplace & great place to work with.</p>
-              </div>
-            </div>
-          </div>
+            </div>  
+          {% endfor %}    
         </div>
       </div>
     </div>
   </div>
 </section>
-
 <!--testimonial end-->
